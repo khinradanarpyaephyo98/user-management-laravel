@@ -71,7 +71,6 @@
             justify-content: center;
             align-items: center;
         }
-
         
         .col-md-10{
             min-height: 100vh; 
@@ -95,6 +94,7 @@
         .ps-md-4 {
             padding-left: 90px !important;         
         }
+        
         .row{
             height: 100vh;
         }
@@ -112,7 +112,6 @@
         #main-layout{
             margin-left: 10px;
         }
-
     </style>
     <title>Roles</title>
 </head>
@@ -197,7 +196,7 @@
                                     </li>
                                     <li class="text-start  ms-4 py-2" >
                                         <a href="" class="link-dark text-decoration-none d-block">
-                                                Import Users    
+                                            Import Users    
                                         </a>
                                     </li>
                                 </ul>
@@ -249,8 +248,23 @@
                                     <div class="bg-white mx-2" id="navbar-a">
                                         <a class="nav-item nav-link" href="#"  ><i class="bi bi-brightness-high"></i></a>
                                     </div>
-                                    <div class="mx-2" id="navbar-a" style="background-color: #F0F0F0;">
-                                        <a class="nav-item nav-link" href="#"><i class="fa-solid fa-p text-primary"></i></a>
+                                    <div clas="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ Auth::user()->name }}
+                                        </a>
+        
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+        
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                        
                                     </div>
                                     
                                 </div>
@@ -309,12 +323,12 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const userTitle = document.getElementById('role-title');
-            const userLi = document.getElementById('role-li');
-            const userList = document.getElementById('rolelist');
+            const userTitle = document.getElementById('role_title');
+            const userLi = document.getElementById('role_li');
+            const userList = document.getElementById('role_href');
             const currentPath = window.location.pathname; // Get the current path
 
-            if (currentPath === "/roles") {
+            if (currentPath === "/roles/create") {
                 userTitle.style.color = '#0080FF';
                 userLi.style.color = '#0080FF';
                 userList.style.color = '#0080FF'; 
@@ -338,7 +352,7 @@
         });                                     
 
         document.addEventListener('DOMContentLoaded', function() {
-            const roleTitle = document.getElementById('role_title');
+            const roleTitle = document.getElementById('role-title');
             const roleLi = document.getElementById('role_li');
             const roleList = document.getElementById('role_href');
             const currentPath = window.location.pathname; // Get the current path

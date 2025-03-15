@@ -124,11 +124,6 @@
                         <img src="/images/pico.jpg" class="pico-img"/>
                     </a>
                     <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center justify-content-between w-80 align-items-center">
-                        <li class="nav-item">  
-                            <a href="#"  class="nav-link py-3 px-2"  data-bs-toggle="modal" data-bs-target="#modalDashboard" id="service-userManage">
-                                <i class="fa-solid fa-grip-vertical text-primary" id="icon-userManage"></i>
-                            </a> 
-                        </li>
                         <li>
                             <a href="#" class="nav-link py-3 px-1" >
                             <i class="fa-solid fa-address-book" style="color:gray"></i>
@@ -211,13 +206,13 @@
                                 </a>
                                 <div class="collapse text-align-left" id="collapseRole">
                                     <ul class="ms-2" style="list-style-type:disc; color:black " id="role-collap-ul">
-                                        <li class="text-start ms-4 py-2" >
-                                            <a href="/roles" class="link-dark text-decoration-none" >
+                                        <li class="text-start ms-4 py-2" id="role_li">
+                                            <a href="/roles" class="link-dark text-decoration-none" id="role_href" >
                                                 Roles List
                                             </a>
                                         </li>
-                                        <li class="text-start ms-4 py-2" id="role_li" > 
-                                            <a href="/roles/create" class="link-dark text-decoration-none" id="role_href">
+                                        <li class="text-start ms-4 py-2"  > 
+                                            <a href="/roles/create" class="link-dark text-decoration-none" >
                                                 Create Role
                                             </a>
                                         </li>
@@ -232,7 +227,7 @@
                 <div class="container">
                     <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                         <div class="navbar-nav  ms-md-auto ms-sx-auto ">
-                            <div class="d-flex flex-row" style="height:40px">
+                            <div class="d-flex flex-row " style="height:40px">
                                 <a class="nav-item nav-link " href="#" id="navbar-a" ><span>English <img src="/images/us-flag.png" style="width: 20px; height:20px; border-radius:40%"></span></a>
                             </div>
                             <div class=" bg-white mx-2 "  id="navbar-a"  >
@@ -244,8 +239,22 @@
                             <div class="bg-white mx-2" id="navbar-a">
                                 <a class="nav-item nav-link" href="#"  ><i class="bi bi-brightness-high"></i></a>
                             </div>
-                            <div class="mx-2" id="navbar-a" style="background-color: #F0F0F0;">
-                                <a class="nav-item nav-link" href="#"><i class="fa-solid fa-p text-primary"></i></a>
+                            <div clas="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -282,8 +291,23 @@
                                 <div class="bg-white mx-2" id="navbar-a">
                                     <a class="nav-item nav-link" href="#"  ><i class="bi bi-brightness-high"></i></a>
                                 </div>
-                                <div class="mx-2" id="navbar-a" style="background-color: #F0F0F0;">
-                                    <a class="nav-item nav-link" href="#"><i class="fa-solid fa-p text-primary"></i></a>
+                                <div clas="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
+    
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+    
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                    
                                 </div>
                                 
                             </div>
@@ -382,8 +406,8 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const userTitle = document.getElementById('role-title');
-            const userLi = document.getElementById('role-li');
-            const userList = document.getElementById('rolelist');
+            const userLi = document.getElementById('role_li');
+            const userList = document.getElementById('role_href');
             const currentPath = window.location.pathname; // Get the current path
 
             if (currentPath === "/roles") {
