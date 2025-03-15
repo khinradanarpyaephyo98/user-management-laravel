@@ -5,7 +5,7 @@ Laravel , Bootstrap , mysql  ( Full stack )
 - composer-install
 - php aritsan migrate
 - php artisan db:seed
-
+- php artisan serve
 ```
   
 ## Login <br>
